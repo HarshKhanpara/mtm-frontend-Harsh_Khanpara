@@ -25,11 +25,7 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
 
   const saveTask = (e) => {
     e.preventDefault();
-    //Trim the input values
-    const taskName = taskName.trim();
-    const taskDescription = taskDescription.trim();
-    const taskDate = taskDate.trim();
-    const taskTime = taskTime.trim();
+
     if (!taskName || !taskDescription || !taskDate || !taskTime) {
         alert('Please fill in all fields.');
         return;

@@ -16,11 +16,7 @@ const EditTask = ({ task, handleEdit }) => {
   };
 
   const handleSubmit = () => {
-    //Trim the input values
-    updatedTask.name = updatedTask.name.trim();
-    updatedTask.description = updatedTask.description.trim();
-    updatedTask.date = updatedTask.date.trim();
-    updatedTask.time = updatedTask.time.trim();
+    
     if (!updatedTask.name || !updatedTask.description || !updatedTask.date || !updatedTask.time) {
       alert('Please fill in all fields.');
       return;

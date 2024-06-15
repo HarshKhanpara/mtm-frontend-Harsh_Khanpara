@@ -37,6 +37,8 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
     setTaskTime("");
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000); // Hide success message after 3 seconds
+    //Redirect to ListTasks component
+    setActiveComponent('list');
   };
 
   return (

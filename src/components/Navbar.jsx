@@ -5,12 +5,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import TaskInput from './taskInput';
 import ListTasks from './ListTasks';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const Navigator = ({tasks,setTasks}) => {
     const [show, setShow] = React.useState(false)
-    const [listTask, setListTask] = React.useState(false)
+    const [listTask, setListTask] = React.useState(true)
     const [activeComponent, setActiveComponent] = useState('');
+
+    //Run at the start
+    useEffect(() => {
+        setActiveComponent("list")
+    }
+    ,[])
+
   
 const handleCreate = () => {
     console.log('Create task')
@@ -46,6 +54,7 @@ const handleList = () => {
    {listTask && activeComponent === 'list' &&
    <ListTasks tasks={tasks}
    setTasks={setTasks}
+   setActiveComponent={setActiveComponent}
     />}
 </>
 )

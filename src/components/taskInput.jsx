@@ -12,9 +12,24 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
   const [taskDate, setTaskDate] = useState("");
   const [taskTime, setTaskTime] = useState("");
   const [isSaved, setIsSaved] = useState(false);
+  const [touched, setTouched] = useState({
+    taskName: false,
+    taskDescription: false,
+    taskDate: false,
+    taskTime: false,
+  });
+
+  const handleBlur = (field) => {
+    setTouched({ ...touched, [field]: true });
+  };
 
   const saveTask = (e) => {
     e.preventDefault();
+    if (!taskName || !taskDescription || !taskDate || !taskTime) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
     setTasks([...tasks, { name: taskName, description: taskDescription, date: taskDate, time: taskTime }]);
     setTaskName("");
     setTaskDescription("");
@@ -29,7 +44,7 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
       <Row className="justify-content-center">
         <Col md={8}>
           <h1 className="text-center mb-4">Create a Task</h1>
-          <Form onSubmit={saveTask}>
+          <Form noValidate className="needs-validation" onSubmit={saveTask}>
             <Form.Group className="mb-3" controlId="formTaskName">
               <Form.Label>Task Name</Form.Label>
               <Form.Control
@@ -37,7 +52,13 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
                 placeholder="Enter task name"
                 value={taskName}
                 onChange={(e) => setTaskName(e.target.value)}
+                onBlur={() => handleBlur('taskName')}
+                isInvalid={touched.taskName && !taskName}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a task name.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formTaskDescription">
               <Form.Label>Task Description</Form.Label>
@@ -46,7 +67,13 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
                 placeholder="Enter task description"
                 value={taskDescription}
                 onChange={(e) => setTaskDescription(e.target.value)}
+                onBlur={() => handleBlur('taskDescription')}
+                isInvalid={touched.taskDescription && !taskDescription}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a task description.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formTaskDate">
               <Form.Label>Task Date</Form.Label>
@@ -54,7 +81,13 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
                 type="date"
                 value={taskDate}
                 onChange={(e) => setTaskDate(e.target.value)}
+                onBlur={() => handleBlur('taskDate')}
+                isInvalid={touched.taskDate && !taskDate}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid date.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formTaskTime">
               <Form.Label>Task Time</Form.Label>
@@ -62,7 +95,13 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
                 type="time"
                 value={taskTime}
                 onChange={(e) => setTaskTime(e.target.value)}
+                onBlur={() => handleBlur('taskTime')}
+                isInvalid={touched.taskTime && !taskTime}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid time.
+              </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit" className="w-100">
               Create Task
@@ -80,3 +119,4 @@ const TaskInput = ({ tasks, setTasks, setActiveComponent }) => {
 };
 
 export default TaskInput;
+

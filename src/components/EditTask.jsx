@@ -16,6 +16,10 @@ const EditTask = ({ task, handleEdit }) => {
   };
 
   const handleSubmit = () => {
+    if (!updatedTask.name || !updatedTask.description || !updatedTask.date || !updatedTask.time) {
+      alert('Please fill in all fields.');
+      return;
+    }
     handleEdit(updatedTask);
     handleClose();
   };
@@ -31,7 +35,7 @@ const EditTask = ({ task, handleEdit }) => {
           <Modal.Title>Edit Task</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-dark text-white">
-          <Form>
+          <Form noValidate className='needs-validation'>
             <Form.Group controlId="formTaskName" className="mb-3">
               <Form.Label>Task Name</Form.Label>
               <Form.Control
@@ -41,6 +45,7 @@ const EditTask = ({ task, handleEdit }) => {
                 onChange={handleChange}
                 readOnly
                 className="bg-secondary text-white"
+                required
               />
             </Form.Group>
             <Form.Group controlId="formTaskDescription" className="mb-3">
@@ -52,6 +57,7 @@ const EditTask = ({ task, handleEdit }) => {
                 value={updatedTask.description}
                 onChange={handleChange}
                 className="bg-secondary text-white"
+                required
               />
             </Form.Group>
             <Form.Group controlId="formTaskDate" className="mb-3">
@@ -62,6 +68,7 @@ const EditTask = ({ task, handleEdit }) => {
                 value={updatedTask.date}
                 onChange={handleChange}
                 className="bg-secondary text-white"
+                required
               />
             </Form.Group>
             <Form.Group controlId="formTaskTime" className="mb-3">
@@ -72,6 +79,7 @@ const EditTask = ({ task, handleEdit }) => {
                 value={updatedTask.time}
                 onChange={handleChange}
                 className="bg-secondary text-white"
+                required
               />
             </Form.Group>
           </Form>
